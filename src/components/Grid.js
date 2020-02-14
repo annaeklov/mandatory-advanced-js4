@@ -1,29 +1,32 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function Grid() {
-  const rows = Array(7)
-    .fill(null)
-    .map((circle, idx) => idx); //idx gör att de vår index-platser
-  console.log("rows", rows); // en array 0-6, tot 7 st
-
-  for (let row of rows) {
-    console.log("row", row); // 0-6 var för sig
-
-    const columns = Array(6)
-      .fill(null)
-      .map((circle, idx) => console.log("idx", idx));
-    rows[row] = [...columns];
-  }
-  console.log("rows", rows);
-
+export default function Grid({ onClickCircle, rows }) {
   return (
     <Container>
       <h1 className="grid">HEJ GRID</h1>
       <GridWrapper>
-        {rows.map((circle, idx) => (
-          <div className="rows" key={idx}></div>
-        ))}
+        {rows.map((row, y) => {
+          return (
+            <div className="rows" key={y}>
+              Rows. y: {y}
+              {row.map((circle, x) => {
+                return (
+                  <div
+                    className="circle"
+                    key={x}
+                    style={{
+                      backgroundColor: circle ? circle : "white"
+                    }}
+                    onClick={() => onClickCircle(y, x)}
+                  >
+                    Circle. x:{x}, y:{y}
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
       </GridWrapper>
     </Container>
   );
@@ -31,9 +34,38 @@ export default function Grid() {
 
 /*--- CSS ---*/
 
-const Container = styled.div`
+const GridWrapper = styled.div`
   height: 80%;
   width: 70%;
+  position: absolute;
+  border-radius: 2px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+
+  .rows {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+  .circle {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 50%;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+  }
+`;
+
+const Container = styled.div`
+  height: 600px;
+  width: 800px;
   position: absolute;
   border-radius: 2px;
   top: 50%;
@@ -62,21 +94,3 @@ const Container = styled.div`
 /* const GridTitle = styled.h1`
   color: blue;
 `; */
-
-const GridWrapper = styled.div`
-  height: 80%;
-  width: 70%;
-  position: absolute;
-  border-radius: 2px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border: 1px solid black;
-
-  .rows {
-    border: 1px solid red;
-    width: 20px;
-    height: 20px;
-  }
-
-`;

@@ -1,7 +1,8 @@
 import React from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import hogwartsBG from "./components/pics/hogwartsBG.jpg";
-import Grid from "./components/Grid.js";
+import Game from "./components/Game.js";
+
 
 export default class App extends React.Component {
   render() {
@@ -9,7 +10,7 @@ export default class App extends React.Component {
       <AppDiv>
         <GlobalStyle />
         <h1 className="app">CONNECT 4</h1>
-        <Grid />
+       <Game/>
       </AppDiv>
     );
   }
