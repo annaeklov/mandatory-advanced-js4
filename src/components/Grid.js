@@ -5,22 +5,23 @@ export default function Grid({ onClickCircle, rows }) {
   return (
     <Container>
       <h1 className="grid">HEJ GRID</h1>
+
       <GridWrapper>
-        {rows.map((row, y) => {
+        {rows.map((row, x) => {
           return (
-            <div className="rows" key={y}>
-              Rows. y: {y}
-              {row.map((circle, x) => {
+            <div className="rows" key={x} onClick={() => onClickCircle(x)}>
+              Rows. x: {x}
+              {row.map((circle, y) => {
                 return (
                   <div
                     className="circle"
-                    key={x}
+                    key={y}
                     style={{
                       backgroundColor: circle ? circle : "white"
                     }}
-                    onClick={() => onClickCircle(y, x)}
+                    /* onClick={() => onClickCircle(x, y)} */
                   >
-                    Circle. x:{x}, y:{y}
+                    Circle. y:{y}, x:{x}
                   </div>
                 );
               })}
@@ -43,13 +44,13 @@ const GridWrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 
   .rows {
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
   }
   .circle {
     width: 100%;

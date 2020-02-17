@@ -1,23 +1,27 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import styled from "styled-components";
 import Grid from "./Grid.js";
 
-let rows = Array(6).fill(null); // 6 st rader
+let rows = Array(7).fill(null); // arrayen som skapar 7 st columner
 
-rows = rows.map(() => Array(7).fill(null));
+rows = rows.map(() => Array(6).fill(null)); // mappar ut 6 st rader från första arrayen.
 
 export default function Game() {
-  const [state, dispatch] = useReducer(reducer, { rows, y: 0, x: 0 });
+  const [player, changePlayer] = useState(true);
+
+  const [state, dispatch] = useReducer(reducer, { rows, x: 0, player: player });
 
   return (
     <>
       <Grid
-        onClickCircle={(y, x) => dispatch({ type: "fillCircle", y, x })}
+        onClickCircle={x => {
+          dispatch({ type: "fillCircle", x, player });
+          changePlayer(!player);
+          console.log(state);
+        }}
         rows={state.rows}
       />
-      <p>
-        State: Y:{state.y} X:{state.x}
-      </p>
+      <p>Player: {player ? "red" : "blue"}</p>
     </>
   );
 }
@@ -25,18 +29,27 @@ export default function Game() {
 function reducer(state, action) {
   switch (action.type) {
     case "fillCircle":
-      const { y, x } = action;
-      console.log(state, action.y, action.x);
+      const { x, player } = action;
+      console.log(action);
 
       const newRows = [...state.rows];
-      const newColumn = [...newRows[y]];
+      //console.log("newRows", newRows); // loggar hela arrayen
 
-      newColumn[x] = "red";
-      newRows[y] = newColumn;
+      const newColumn = [...newRows[x]];
+      //console.log("newColumn", newColumn);
+
+      console.log(newColumn);
+
+      getLastIndex(newColumn, player);
+
+      newRows[x] = newColumn;
+      //console.log(newColumn, newRows);
+
       return {
         rows: newRows,
+        x: action.x,
         y: action.y,
-        x: action.x
+        player: action.player
       };
 
     default:
@@ -44,7 +57,19 @@ function reducer(state, action) {
   }
 }
 
+function getLastIndex(newColumn, player) {
+  for (let i = newColumn.length - 1; i >= 0; i--) {
+    if (newColumn[i] === null) {
+      newColumn[i] = player ? "red" : "blue";
+      return newColumn;
+    }
+  }
+  return null;
+}
+
 /* 
 - action.type loggar ditt case-namn(samma som type-namn)
 - action loggar ett object som innehåller det som finns i dispatch 
+ //console.log(state, action.y, action.x, action.type); 
+      //state= rows, y&x = indexplatserna, action.type= "fillCircle"
 */
