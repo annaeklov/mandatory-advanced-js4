@@ -22,7 +22,7 @@ export default function Game() {
       <Grid
         onClickCircle={(x, y) => {
           dispatch({ type: "fillCircle", x, y });
-          console.log(state);
+          //console.log(state);
         }}
         rows={state.rows}
       />
@@ -48,6 +48,8 @@ function reducer(state, action) {
 
       checkWinnerVerti(newRows);
       checkWinnerHori(newRows);
+      checkWinnerDiagonalLeftToRight(newRows);
+      checkWinnerDiagonalRightToLeft(newRows);
 
       return {
         rows: newRows,
@@ -73,8 +75,10 @@ function getLastIndex(newColumn, player) {
   return null;
 }
 
+/* -- CHECK WINNERS FUNKTIONER -- */
+
+
 function checkWinnerVerti(rows) {
-  
   for (let i = 0; i < rows.length; i++) {
     for (let j = 0; j < 4; j++) {
       const y = rows[i][j];
@@ -91,17 +95,55 @@ function checkWinnerVerti(rows) {
 }
 
 function checkWinnerHori(rows) {
-  
-  for (let i = 0; i < rows.length -3; i++) {
+  for (let i = 0; i < rows.length - 3; i++) {
     for (let j = 0; j < 7; j++) {
       const x = rows[i][j];
       if (
         x &&
-        x === rows[i +1][j] &&
-        x === rows[i +2][j] &&
+        x === rows[i + 1][j] &&
+        x === rows[i + 2][j] &&
         x === rows[i + 3][j]
       ) {
         console.log("THE WINNER IS: ", x, ", horizontal!");
+      }
+    }
+  }
+}
+
+ function checkWinnerDiagonalLeftToRight(rows) {
+  for (let i = 0; i < rows.length - 3; i++) {
+    for (let j = 5; j >= 0; j--) {
+      const x = rows[i][j];
+      //console.log("rows[i] =", rows[i], "rows[i -1]= ", rows[i-1], "i=", i);
+      if (
+        x &&
+        x === rows[i + 1][j - 1] &&
+        x === rows[i + 2][j - 2] &&
+        x === rows[i + 3][j - 3]
+      ) {
+        console.log("THE WINNER IS", x, ", diagonal left to right");
+          console.log(rows);
+
+        //  Ändra ngt här så den stoppas vid vinnare av fyra.
+      }
+    }
+  }
+}
+
+function checkWinnerDiagonalRightToLeft(rows) {
+  //console.log(rows);
+ for (let i = 0; i < rows.length - 3; i++) {
+    for (let j = 0; j < 5; j++) {
+      const x = rows[i][j];
+      //console.log("rows[i] =", rows[i], "rows[i -1]= ", rows[i-1], "i=", i);
+      if (
+        x &&
+        x === rows[i + 1][j + 1] &&
+        x === rows[i + 2][j + 2] &&
+        x === rows[i + 3][j + 3]
+      ) {
+        console.log("THE WINNER IS", x, ", diagonal right to left");
+        //  Ändra ngt här så den stoppas vid vinnare av fyra.
       }
     }
   }
