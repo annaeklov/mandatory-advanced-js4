@@ -29,6 +29,7 @@ export default function Grid({ onClickCircle, rows }) {
           );
         })}
       </GridWrapper>
+
     </Container>
   );
 }
