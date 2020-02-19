@@ -1,35 +1,24 @@
 import React from "react";
 import styled from "styled-components";
+import Classnames from "classnames";
 
 export default function Grid({ onClickCircle, rows }) {
   return (
     <Container>
-      <h1 className="grid">HEJ GRID</h1>
 
       <GridWrapper>
         {rows.map((row, x) => {
           return (
             <div className="rows" key={x} onClick={() => onClickCircle(x)}>
-              Rows. x: {x}
               {row.map((circle, y) => {
                 return (
-                  <div
-                    className="circle"
-                    key={y}
-                    style={{
-                      backgroundColor: circle ? circle : "white"
-                    }}
-                    /* onClick={() => onClickCircle(x, y)} */
-                  >
-                    Circle. y:{y}, x:{x}
-                  </div>
+                  <div className={Classnames("circle", [circle])} key={y}></div>
                 );
               })}
             </div>
           );
         })}
       </GridWrapper>
-
     </Container>
   );
 }
@@ -62,6 +51,23 @@ const GridWrapper = styled.div`
     justify-content: center;
     text-align: center;
     cursor: pointer;
+    border: 1px solid #740200;
+  }
+
+  .Harry {
+    background-image: url("https://i1.wp.com/www.heyuguys.com/images/2011/05/Harry-Potter-and-the-Deathly-Hallows-Part-2-Poster.jpg?fit=486%2C718&ssl=1");
+    background-repeat: no-repeat;
+    background-size: cover;
+        opacity: 0.8;
+
+  }
+
+  .Voldemort {
+    background-image: url("https://vignette.wikia.nocookie.net/harrypotter/images/6/6e/VoldemortHeadshot_DHP1.png/revision/latest/top-crop/width/360/height/360?cb=20161203031453");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.8;
   }
 `;
 

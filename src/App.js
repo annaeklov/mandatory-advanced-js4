@@ -3,14 +3,13 @@ import styled, { createGlobalStyle } from "styled-components";
 import hogwartsBG from "./components/pics/hogwartsBG.jpg";
 import Game from "./components/Game.js";
 
-
 export default class App extends React.Component {
   render() {
     return (
       <AppDiv>
         <GlobalStyle />
-        <h1 className="app">CONNECT 4</h1>
-       <Game/>
+        <h1 className="app">CONNECT 4 - Harry vs Voldemort</h1>
+        <Game />
       </AppDiv>
     );
   }
@@ -28,12 +27,12 @@ const GlobalStyle = createGlobalStyle`
     top: 5px;
 
     &.app {
-      color: #d2b7c8;
+      color: #740200;
     }
-    &.grid  {
-      color: #e9b9cc;
-    }
+
   };
+
+
 `;
 
 const AppDiv = styled.div`
@@ -54,10 +53,6 @@ const AppDiv = styled.div`
     width: 100%;
     height: 100%;
   }
-
-  /*Alla h1 under AppDiv kommer få denna styling, denna vinner ALLTID*/
-  /*   h1 {
-  } */
 `;
 
 /* Vinner över global men INTE h1 i sin parent */
