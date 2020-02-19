@@ -18,7 +18,7 @@ export default function Game() {
     rows: board(),
     x: 0,
     y: 0,
-    player: "Harry",
+    player: "Harry Potter",
     gameOver: false,
     countClick: 1,
     tie: false
@@ -68,9 +68,9 @@ function reducer(state, action) {
         ...state,
         rows: newRows,
         player: !checkWinner(newRows)
-          ? state.player === "Harry"
+          ? state.player === "Harry Potter"
             ? "Voldemort"
-            : "Harry"
+            : "Harry Potter"
           : state.player,
         gameOver: checkWinner(newRows),
         countClick: state.countClick + 1,
@@ -82,7 +82,7 @@ function reducer(state, action) {
         rows: board(),
         x: 0,
         y: 0,
-        player: "Harry",
+        player: "Harry Potter",
         gameOver: false
       };
 
@@ -129,9 +129,9 @@ const Popup = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  display: flex;
+/*   display: flex;
   flex-direction: column;
-  align-items: space-between;
+  align-items: space-between; */
 
   p {
     color: #d3a625;

@@ -8,7 +8,7 @@ export default class App extends React.Component {
     return (
       <AppDiv>
         <GlobalStyle />
-        <h1 className="app">CONNECT 4 - Harry vs Voldemort</h1>
+        <h1 className="app">CONNECT 4 - Harry Potter vs Voldemort</h1>
         <Game />
       </AppDiv>
     );
