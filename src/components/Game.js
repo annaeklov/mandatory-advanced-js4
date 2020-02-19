@@ -18,30 +18,31 @@ export default function Game() {
     x: 0,
     y: 0,
     player: "red",
-    gameOver: false
+    gameOver: false,
+    countClick: 1,
+    tie: false
   });
 
-  /*   let button = true;
-   */
   return (
     <>
       <Grid
         onClickCircle={(x, y) => {
           dispatch({ type: "fillCircle", x, y });
-          //console.log(state);
         }}
         rows={state.rows}
       />
-      {!state.gameOver && (
+      {(!state.gameOver && !state.tie) && (
         <p>
           Player <b>{state.player}</b> turn
         </p>
       )}
 
       <div>
-        {state.gameOver && (
+        {(state.gameOver || state.tie) && (
           <div>
-            <p>THE WINNER IS: {state.player}</p>
+            <p>
+              {state.gameOver ? `THE WINNER IS: ${state.player}` : `IT'S A TIE`}
+            </p>
             <button onClick={() => dispatch({ type: "reset" })}>Reset</button>
           </div>
         )}
@@ -55,7 +56,7 @@ export default function Game() {
 function reducer(state, action) {
   switch (action.type) {
     case "fillCircle":
-      if (state.gameOver) return state;
+      if (state.gameOver || state.tie) return state;
       const { x, y } = action;
       const newRows = [...state.rows];
       const newColumn = [...newRows[x]];
@@ -71,6 +72,7 @@ function reducer(state, action) {
           gameOver: true
         } ;
       } */
+      console.log(state.countClick);
 
       return {
         ...state,
@@ -80,11 +82,12 @@ function reducer(state, action) {
             ? "blue"
             : "red"
           : state.player,
-        gameOver: checkWinner(newRows)
+        gameOver: checkWinner(newRows),
+        countClick: state.countClick + 1,
+        tie: state.countClick === 41 ? true : false
       };
 
     case "reset":
-      console.log("click reset");
       return {
         rows: board(),
         x: 0,
@@ -109,12 +112,3 @@ function getLastIndex(newColumn, player) {
   }
   return null;
 }
-
-/* -- KOMMENTARER -- */
-
-/* 
-- action.type loggar ditt case-namn(samma som type-namn)
-- action loggar ett object som innehåller det som finns i dispatch 
- //console.log(state, action.y, action.x, action.type); 
-      //state= rows, y&x = indexplatserna, action.type= "fillCircle"
-*/

@@ -52,7 +52,6 @@ function checkWinnerDiagonalLeftToRight(rows) {
   for (let i = 0; i < rows.length - 3; i++) {
     for (let j = 5; j >= 0; j--) {
       const x = rows[i][j];
-      //console.log("rows[i] =", rows[i], "rows[i -1]= ", rows[i-1], "i=", i);
       if (
         x &&
         x === rows[i + 1][j - 1] &&
@@ -62,7 +61,6 @@ function checkWinnerDiagonalLeftToRight(rows) {
         console.log("THE WINNER IS", x, ", diagonal left to right");
         return true;
 
-        //  Ändra ngt här så den stoppas vid vinnare av fyra.
       }
     }
   }
@@ -70,11 +68,9 @@ function checkWinnerDiagonalLeftToRight(rows) {
 }
 
 function checkWinnerDiagonalRightToLeft(rows) {
-  //console.log(rows);
   for (let i = 0; i < rows.length - 3; i++) {
     for (let j = 0; j < 5; j++) {
       const x = rows[i][j];
-      //console.log("rows[i] =", rows[i], "rows[i -1]= ", rows[i-1], "i=", i);
       if (
         x &&
         x === rows[i + 1][j + 1] &&
@@ -84,7 +80,6 @@ function checkWinnerDiagonalRightToLeft(rows) {
         console.log("THE WINNER IS", x, ", diagonal right to left");
         return true;
 
-        //  Ändra ngt här så den stoppas vid vinnare av fyra.
       }
     }
   }
