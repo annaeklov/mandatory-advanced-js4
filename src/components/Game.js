@@ -56,7 +56,7 @@ function reducer(state, action) {
   switch (action.type) {
     case "fillCircle":
       if (state.gameOver || state.tie) return state;
-      const { x, y } = action;
+      const { x } = action;
       const newRows = [...state.rows];
       const newColumn = [...newRows[x]];
       if (getLastIndex(newColumn, state.player) === null) {
@@ -74,7 +74,7 @@ function reducer(state, action) {
           : state.player,
         gameOver: checkWinner(newRows),
         countClick: state.countClick + 1,
-        tie: state.countClick === 41 ? true : false
+        tie: state.countClick === 42 ? true : false
       };
 
     case "reset":
@@ -110,7 +110,7 @@ const PlayerP = styled.p`
   margin: 0;
   left: 50%;
   transform: translate(-50%);
-  top: 100px;
+  top: 10%;
   font-size: 30px;
   color: #d3a625;
 `;
@@ -129,9 +129,6 @@ const Popup = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-/*   display: flex;
-  flex-direction: column;
-  align-items: space-between; */
 
   p {
     color: #d3a625;

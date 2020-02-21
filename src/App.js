@@ -8,7 +8,7 @@ export default class App extends React.Component {
     return (
       <AppDiv>
         <GlobalStyle />
-        <h1 className="app">CONNECT 4 - Harry Potter vs Voldemort</h1>
+        <h1>CONNECT 4 - Harry Potter vs Voldemort</h1>
         <Game />
       </AppDiv>
     );
@@ -17,22 +17,14 @@ export default class App extends React.Component {
 
 /*--- CSS ---*/
 
-/* Gör stylingen global, OM de inte har egen mer specifik styling i sitt eget element eller parent-element */
-
 const GlobalStyle = createGlobalStyle`
   h1 {
     position:absolute;
     left: 20%;
     font-size: 30px;
     top: 5px;
-
-    &.app {
-      color: #740200;
-    }
-
+    color: #740200;
   };
-
-
 `;
 
 const AppDiv = styled.div`
@@ -54,7 +46,3 @@ const AppDiv = styled.div`
     height: 100%;
   }
 `;
-
-/* Vinner över global men INTE h1 i sin parent */
-/* const AppTitle = styled.h1`
-`; */
